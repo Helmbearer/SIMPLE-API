@@ -46,18 +46,27 @@ func getAllUsers(w http.ResponseWriter) {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
 	}
-	json.NewEncoder(w).Encode(users)
+	err = json.NewEncoder(w).Encode(users)
+	if err != nil {
+		return
+	}
 }
 
 func createUser(w http.ResponseWriter, r *http.Request) {
 	var user models.User
-	json.NewDecoder(r.Body).Decode(&user)
-	err := services.CreateUser(user)
+	err := json.NewDecoder(r.Body).Decode(&user)
+	if err != nil {
+		return
+	}
+	err = services.CreateUser(user)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
 	}
-	json.NewEncoder(w).Encode(user)
+	err = json.NewEncoder(w).Encode(user)
+	if err != nil {
+		return
+	}
 }
 
 func getUserById(w http.ResponseWriter, id int) {
@@ -66,18 +75,27 @@ func getUserById(w http.ResponseWriter, id int) {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
 	}
-	json.NewEncoder(w).Encode(user)
+	err = json.NewEncoder(w).Encode(user)
+	if err != nil {
+		return
+	}
 }
 
 func updateUser(w http.ResponseWriter, r *http.Request, id int) {
 	var user models.User
-	json.NewDecoder(r.Body).Decode(&user)
-	err := services.UpdateUser(id, user)
+	err := json.NewDecoder(r.Body).Decode(&user)
+	if err != nil {
+		return
+	}
+	err = services.UpdateUser(id, user)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
 	}
-	json.NewEncoder(w).Encode(user)
+	err = json.NewEncoder(w).Encode(user)
+	if err != nil {
+		return
+	}
 }
 
 func deleteUser(w http.ResponseWriter, id int) {

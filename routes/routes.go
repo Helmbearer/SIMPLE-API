@@ -2,15 +2,13 @@ package routes
 
 import (
 	"SIMPLE-API/controllers"
-	"github.com/gorilla/mux"
+	"net/http"
 )
 
-func RegisterRoutes() *mux.Router {
-	router := mux.NewRouter()
-	router.HandleFunc("/users", controllers.GetAllUsers).Methods("GET")
-	router.HandleFunc("/users", controllers.CreateUser).Methods("POST")
-	router.HandleFunc("/users/{id}", controllers.GetUserById).Methods("GET")
-	router.HandleFunc("/users/{id}", controllers.UpdateUser).Methods("PUT")
-	router.HandleFunc("/users/{id}", controllers.DeleteUser).Methods("DELETE")
+func RegisterRoutes() *http.ServeMux {
+	router := http.NewServeMux()
+	router.HandleFunc("/users", controllers.UsersHandler)
+	router.HandleFunc("/users/", controllers.UserHandler)
+
 	return router
 }

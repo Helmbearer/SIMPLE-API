@@ -1,0 +1,1 @@
+Simple API project for learning purposes.
